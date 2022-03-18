@@ -11,7 +11,7 @@ class FancyWalletGetPriceTests(unittest.TestCase):
 
     def test_get_price_tsla_upper(self):
         runner = CliRunner()
-        result = runner.invoke(fancywallet, ['get', 'price', 'TSLA'])
+        result = runner.invoke(fancywallet, ['get', 'price', 'TSLAasdzxc'])
         self.assertEqual(result.exit_code, 0)
 
     def test_get_price_unknown(self):
