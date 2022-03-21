@@ -17,5 +17,6 @@ setup(
     [console_scripts]
     fun=funcli:funcli
     fancywallet=fancywallet:fancywallet
+    val=valcommands:valcommands
     '''
 )
