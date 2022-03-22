@@ -7,7 +7,7 @@ from setuptools import setup, find_packages
 # name=module:entrypoint
 setup(
     name='valcli',
-    version='0.0.0',
+    version='0.0.1',
     packages=find_packages(),
     install_requires=[
         'click',

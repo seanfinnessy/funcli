@@ -25,18 +25,21 @@ def create_user(username, password):
     '''
     Command for adding username and password to credentials file.
     '''
-    if not os.path.exists('credentials.txt'):
-        with open('credentials.txt', 'w') as f:
+    if not os.path.exists(os.path.expanduser("~\Desktop\ValCLI\credentials.txt")):
+        # TODO: Error here when making directory.
+        if not os.path.exists(os.environ['USERPROFILE'] + '\Desktop\ValCLI'):
+            os.mkdir(os.environ['USERPROFILE'] + '\Desktop\ValCLI')
+        with open(os.path.expanduser("~\Desktop\ValCLI\credentials.txt"), 'w') as f:
             f.write(username + ':' + password + '\n')
 
     else:
-        with open('credentials.txt', 'r') as f:
+        with open(os.path.expanduser("~\Desktop\ValCLI\credentials.txt"), 'r') as f:
             for line in f:
                 if username + ':' in line:
                     click.secho(
                         "This username already exists. Please try a different one.", fg='red')
                     sys.exit()
-        with open('credentials.txt', "a") as f:
+        with open(os.path.expanduser("~\Desktop\ValCLI\credentials.txt"), "a") as f:
             f.write(username + ':' + password + '\n')
     click.secho("Added username and password to credentials file.", fg='green')
 
@@ -47,17 +50,17 @@ def remove_user(username):
     '''
     Command for removing username and password from credentials file.
     '''
-    if not os.path.exists('credentials.txt'):
+    if not os.path.exists(os.path.expanduser("~\Desktop\ValCLI\credentials.txt")):
         no_credentials_file()
 
     else:
         username_flag = False
-        with open("credentials.txt", "r") as f:
+        with open(os.path.expanduser("~\Desktop\ValCLI\credentials.txt"), "r") as f:
             lines = f.readlines()
             for line in lines:
                 if username + ':' in line:
                     username_flag = True
-        with open("credentials.txt", "w") as f:
+        with open(os.path.expanduser("~\Desktop\ValCLI\credentials.txt"), "w") as f:
             for line in lines:
                 if username + ':' not in line:
                     f.write(line)
@@ -69,6 +72,8 @@ def remove_user(username):
             click.secho(
                 f"Could not find {username} in credentails file.", fg='red')
 
+# TODO: Need to add handling for if info is incorrect.
+
 
 @click.command(name='login')
 @click.argument('username')
@@ -77,13 +82,13 @@ def login_user(username):
     Command for logging into Valorant by providing a valid username.
     '''
     # Check if credential file exists
-    if not os.path.exists('credentials.txt'):
+    if not os.path.exists(os.path.expanduser("~\Desktop\ValCLI\credentials.txt")):
         no_credentials_file()
 
     # Get password
     click.echo(f"Collecting password for {username}...")
     password = ""
-    with open('credentials.txt', 'r') as f:
+    with open(os.path.expanduser("~\Desktop\ValCLI\credentials.txt"), 'r') as f:
         for line in f:
             if username + ':' in line:
                 # Seperate after colon and limit to one split
