@@ -6,10 +6,9 @@ import sys
 
 
 def no_credentials_file():
-    with open('credentials.txt', 'r'):
-        click.secho(
-            f"Could not find credentials file. Please use 'add' command to create valid credentials.", fg='red')
-        sys.exit()
+    click.secho(
+        f"Could not find credentials file. Please use 'add' command to create valid credentials.", fg='red')
+    sys.exit()
 
 
 @click.group()
@@ -24,7 +23,7 @@ def valcommands():
 @click.option('--password', '-p', help="Password belonging to your username", required=True, hide_input=True, confirmation_prompt=True, prompt="Password")
 def create_user(username, password):
     '''
-    Command for adding username and password for later use.
+    Command for adding username and password to credentials file.
     '''
     if not os.path.exists('credentials.txt'):
         with open('credentials.txt', 'w') as f:
@@ -43,7 +42,7 @@ def create_user(username, password):
 
 
 @click.command('remove')
-@click.option('--username', '-u', help="Your Valorant username", required=True, prompt="Username to remove")
+@click.option('--username', '-u', help="Valorant username you wish to remove", required=True, prompt="Username")
 def remove_user(username):
     '''
     Command for removing username and password from credentials file.
@@ -52,13 +51,23 @@ def remove_user(username):
         no_credentials_file()
 
     else:
+        username_flag = False
         with open("credentials.txt", "r") as f:
             lines = f.readlines()
+            for line in lines:
+                if username + ':' in line:
+                    username_flag = True
         with open("credentials.txt", "w") as f:
             for line in lines:
                 if username + ':' not in line:
                     f.write(line)
-        click.secho(f"Removed {username} from credentials file.", fg='green')
+
+        if username_flag is True:
+            click.secho(
+                f"Removed {username} from credentials file.", fg='green')
+        else:
+            click.secho(
+                f"Could not find {username} in credentails file.", fg='red')
 
 
 @click.command(name='login')
