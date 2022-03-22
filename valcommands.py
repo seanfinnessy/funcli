@@ -7,8 +7,8 @@ import sys
 
 def no_credentials_file():
     with open('credentials.txt', 'r'):
-        click.echo(
-            f"Could not find credentials file. Please use 'add' command to create valid credentials.")
+        click.secho(
+            f"Could not find credentials file. Please use 'add' command to create valid credentials.", fg='red')
         sys.exit()
 
 
@@ -34,12 +34,12 @@ def create_user(username, password):
         with open('credentials.txt', 'r') as f:
             for line in f:
                 if username + ':' in line:
-                    click.echo(
-                        "This username already exists. Please try a different one.")
+                    click.secho(
+                        "This username already exists. Please try a different one.", fg='red')
                     sys.exit()
         with open('credentials.txt', "a") as f:
             f.write(username + ':' + password + '\n')
-    click.echo("Added username and password to credentials file.")
+    click.secho("Added username and password to credentials file.", fg='green')
 
 
 @click.command('remove')
@@ -58,7 +58,7 @@ def remove_user(username):
             for line in lines:
                 if username + ':' not in line:
                     f.write(line)
-        click.echo(f"Removed {username} from credentials file.")
+        click.secho(f"Removed {username} from credentials file.", fg='green')
 
 
 @click.command(name='login')
@@ -80,7 +80,7 @@ def login_user(username):
                 # Seperate after colon and limit to one split
                 password = line.split(":", 1)[1]
     if password == "":
-        click.echo(f"Could not find password for {username}")
+        click.secho(f"Could not find password for {username}.", fg='red')
         sys.exit()
 
     # Login using credentials found
@@ -111,9 +111,9 @@ def login_user(username):
             pyautogui.press('tab')
         pyautogui.press('enter')
 
-        click.echo(f"Successfully logged in as: {username}")
+        click.secho(f"Successfully logged in as: {username}.", fg='green')
     except PermissionError:
-        click.echo("Permission is denied.")
+        click.secho("Permission is denied.", fg='red')
 
 
 valcommands.add_command(login_user)
