@@ -18,5 +18,6 @@ setup(
     entry_points='''
     [console_scripts]
     val=valcommands:valcommands
+    fancywallet=fancywallet:fancywallet
     '''
 )
