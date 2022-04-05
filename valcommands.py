@@ -213,6 +213,3 @@ valcommands.add_command(login_user)
 valcommands.add_command(create_user)
 valcommands.add_command(remove_user)
 valcommands.add_command(lookup_user)
-
-if __name__ == '__main__':
-    valcommands()
