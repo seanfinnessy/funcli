@@ -1,5 +1,5 @@
 from importlib.metadata import entry_points
-from setuptools import setup, find_packages
+from setuptools import setup, find_namespace_packages
 
 # where name is the name for the script you want to create,
 # the left hand side of : is the module that contains your function
@@ -7,8 +7,8 @@ from setuptools import setup, find_packages
 # name=module:entrypoint
 setup(
     name='valcli',
-    version='0.0.4',
-    packages=find_packages(),
+    version='0.0.5',
+    packages=find_namespace_packages,
     install_requires=[
         'click',
         'requests',
