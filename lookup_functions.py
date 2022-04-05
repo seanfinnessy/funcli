@@ -21,7 +21,7 @@ class GameSetup:
                 keys = ['name', 'PID', 'port', 'password', 'protocol']
                 # dict constructor and zip function used to create dict with lockfile data.
                 return (dict(zip(keys, data)))
-        except FileNotFoundError:
+        except:
             return -1
 
     @staticmethod
@@ -140,7 +140,7 @@ class LobbySetup:
                     numberOfWins = r["QueueSkills"]["competitive"]["SeasonalInfoBySeasonID"][seasonID]["NumberOfWinsWithPlacements"]
                     numberOfGames = r["QueueSkills"]["competitive"]["SeasonalInfoBySeasonID"][seasonID]["NumberOfGames"]
                     winPercent = round(int(numberOfWins) /
-                                       int(numberOfGames), 4) * 100
+                                       int(numberOfGames), 3) * 100
                 else:
                     winPercent = 0
                 rankTIER = r["QueueSkills"]["competitive"]["SeasonalInfoBySeasonID"][seasonID]["CompetitiveTier"]
@@ -152,19 +152,19 @@ class LobbySetup:
                 elif int(rankTIER) not in (0, 1, 2, 3):
                     rank = [rankTIER,
                             r["QueueSkills"]["competitive"]["SeasonalInfoBySeasonID"][seasonID]["RankedRating"],
-                            0,
+                            'N/A',
                             ]
                 else:
-                    rank = [0, 0, 0]
+                    rank = [0, 0, 'N/A']
             else:
                 print("Failed retrieving rank.")
-                rank = [0, 0, 0]
+                rank = [0, 0, 'N/A']
                 winPercent = 0
         except TypeError:
-            rank = [0, 0, 0]
+            rank = [0, 0, 'N/A']
             winPercent = 0
         except KeyError:
-            rank = [0, 0, 0]
+            rank = [0, 0, 'N/A']
             winPercent = 0
 
         # Convert tier to rank name.
