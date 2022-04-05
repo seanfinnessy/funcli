@@ -4,7 +4,7 @@ import requests
 import urllib3
 import base64
 
-from conversions import number_to_ranks
+from util.conversions import number_to_ranks
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 

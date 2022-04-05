@@ -1,5 +1,5 @@
 from importlib.metadata import entry_points
-from setuptools import setup, find_namespace_packages
+from setuptools import setup, find_packages
 
 # where name is the name for the script you want to create,
 # the left hand side of : is the module that contains your function
@@ -8,7 +8,7 @@ from setuptools import setup, find_namespace_packages
 setup(
     name='valcli',
     version='0.0.6',
-    packages=find_namespace_packages(),
+    packages=find_packages(),
     install_requires=[
         'click',
         'requests',
@@ -18,6 +18,6 @@ setup(
     ],
     entry_points='''
     [console_scripts]
-    val=valcommands:valcommands
+    val=cli.main:valcommands
     '''
 )

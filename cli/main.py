@@ -5,7 +5,7 @@ import time
 import sys
 
 from cryptography.fernet import Fernet
-from lookup_functions import GameSetup, LocalSetup, LobbySetup
+from util.lookup_functions import GameSetup, LocalSetup, LobbySetup
 
 
 def create_key():
@@ -213,3 +213,6 @@ valcommands.add_command(login_user)
 valcommands.add_command(create_user)
 valcommands.add_command(remove_user)
 valcommands.add_command(lookup_user)
+
+if __name__ == 'main':
+    valcommands()
