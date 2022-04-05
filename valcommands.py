@@ -63,7 +63,7 @@ def create_user(username, password):
         if not os.path.exists(os.environ['USERPROFILE'] + '\Desktop\ValCLI'):
             os.mkdir(os.environ['USERPROFILE'] + '\Desktop\ValCLI')
         with open(os.path.expanduser("~\Desktop\ValCLI\credentials.txt"), 'w') as f:
-            f.write(username + ':' + enc_password + '\n')
+            f.write(username + ':' + password + '\n')
 
     else:
         with open(os.path.expanduser("~\Desktop\ValCLI\credentials.txt"), 'r') as f:
@@ -213,3 +213,6 @@ valcommands.add_command(login_user)
 valcommands.add_command(create_user)
 valcommands.add_command(remove_user)
 valcommands.add_command(lookup_user)
+
+if __name__ == '__main__':
+    valcommands()
